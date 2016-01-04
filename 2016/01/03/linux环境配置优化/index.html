@@ -6,16 +6,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>linux环境配置优化 | Fueze&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="优化linux profile环境配置，解决配置文件复杂的问题">
+  <meta name="description" content="优化linux profile环境配置">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux环境配置优化">
 <meta property="og:url" content="http://yoursite.com/2016/01/03/linux环境配置优化/index.html">
 <meta property="og:site_name" content="Fueze's blog">
-<meta property="og:description" content="优化linux profile环境配置，解决配置文件复杂的问题">
-<meta property="og:updated_time" content="2016-01-03T11:04:39.832Z">
+<meta property="og:description" content="优化linux profile环境配置">
+<meta property="og:updated_time" content="2016-01-04T01:23:50.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux环境配置优化">
-<meta name="twitter:description" content="优化linux profile环境配置，解决配置文件复杂的问题">
+<meta name="twitter:description" content="优化linux profile环境配置">
   
     <link rel="alternative" href="/atom.xml" title="Fueze&#39;s blog" type="application/atom+xml">
   
@@ -218,9 +218,8 @@
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="operator">-d</span> /etc/profile.d ]; <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> /etc/profile.d/*.sh; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="variable">$i</span> ]; <span class="keyword">then</span></span><br><span class="line">      . <span class="variable">$i</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">  <span class="built_in">unset</span> i</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 <p> 这里意思加载环境变量会加载 /etc/profile.d 目录下的所有sh文件<br> 这就意味着我们可以把独立的配置单独一个sh放到目录下 </p>
 </li>
-<li><p>为了方便管理 我们可以在目录下 用 ln -s 来引用脚本<br>例如：<br>java 环境<br>/usr/local/java/jdk1.7.0_71<br>mkdir /usr/local/profile.d<br>vi /usr/local/profile.d/java.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.<span class="number">7.0</span>_71</span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
-<p>cd /etc/profile.d<br>ln -s /usr/local/profile.d/java.sh<br>source /etc/profile</p>
+<li><p>为了方便管理 我们可以在目录下 用 ln -s 来引用脚本<br>例如：<br>java 环境 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- java:/usr/<span class="built_in">local</span>/java/jdk1.<span class="number">7.0</span>_71 </span><br><span class="line">$ mkdir /usr/<span class="built_in">local</span>/profile.d </span><br><span class="line">$ vi /usr/<span class="built_in">local</span>/profile.d/java.sh</span><br><span class="line"></span><br><span class="line">	<span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/java/jdk1.<span class="number">7.0</span>_71</span><br><span class="line">	<span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib</span><br><span class="line">	<span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">cd</span> /etc/profile.d </span><br><span class="line">$ ln <span class="operator">-s</span> /usr/<span class="built_in">local</span>/profile.d/java.sh </span><br><span class="line">$ <span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>end..</p>

@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://fueze.github.io</id>
     <title>Fueze&apos;s blog</title>
-    <updated>2021-01-15T06:14:34.993Z</updated>
+    <updated>2021-10-27T09:54:33.296Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://fueze.github.io"/>
     <link rel="self" href="https://fueze.github.io/atom.xml"/>
@@ -19,46 +19,6 @@
         <summary type="html"><![CDATA[<p>优化linux profile环境配置，解决配置文件复杂的问题</p>
 ]]></summary>
         <content type="html"><![CDATA[<p>优化linux profile环境配置，解决配置文件复杂的问题</p>
-<!--more-->
-<ol>
-<li>
-<p>标准环境配置<br>
-/etc/profile 配置</p>
-</li>
-<li>
-<p>环境配置优化<br>
-查看/etc/profile 可以发现一个脚本</p>
-<pre><code class="language-bash">	if [ -d /etc/profile.d ]; then
-	  for i in /etc/profile.d/*.sh; do
-	    if [ -r $i ]; then
-	      . $i
-	    fi
-	  done
-	  unset i
-	fi
-</code></pre>
-<p>这里意思加载环境变量会加载 /etc/profile.d 目录下的所有sh文件<br>
-这就意味着我们可以把独立的配置单独一个sh放到目录下</p>
-</li>
-<li>
-<p>为了方便管理 我们可以在目录下 用 ln -s 来引用脚本<br>
-例如：<br>
-java 环境</p>
-<pre><code class="language-bash">	- java:/usr/local/java/jdk1.7.0_71 
-	$ mkdir /usr/local/profile.d 
-	$ vi /usr/local/profile.d/java.sh
-	
-		export JAVA_HOME=/usr/local/java/jdk1.7.0_71
-		export CLASSPATH=.:$JAVA_HOME/lib
-		export PATH=$JAVA_HOME/bin:$PATH
-	
-	$ cd /etc/profile.d 
-	$ ln -s /usr/local/profile.d/java.sh 
-	$ source /etc/profile
-</code></pre>
-</li>
-</ol>
-<p>end..</p>
 ]]></content>
     </entry>
 </feed>
